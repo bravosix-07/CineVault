@@ -1,94 +1,276 @@
-# CineVault — Dockerized Flask App
+# 🎬 CineVault
 
-## Quick Start
+CineVault is a full-stack, Dockerized movie management platform built to store, organize, and manage film data in a structured and scalable way.
 
-### 1️⃣ Setup environment
+It provides a secure REST API for managing movies, actors, directors, genres, and languages — along with authentication, pagination, and search functionality. This project demonstrates backend engineering practices including containerization, relational database design, authentication systems, and production-style API development.
 
-Copy the example env file:
+---
 
-Linux/macOS:
+## 🚀 Features
+
+- 🔐 JWT-based Authentication (Register / Login)
+- 🎞️ Movie CRUD Operations
+- 👥 Actor & Director Relationships
+- 🏷️ Genre & Language Tagging
+- 🔎 Movie Search by Title
+- 📄 Pagination Support
+- 🗄️ MySQL Relational Database
+- 🐳 Dockerized Deployment (Flask + MySQL)
+- 🌐 RESTful API Architecture
+
+---
+
+## 🧱 Tech Stack
+
+| Layer | Technology |
+|------|-------------|
+| Backend | Flask (Python) |
+| ORM | SQLAlchemy |
+| Authentication | JWT (Flask-JWT-Extended) |
+| Database | MySQL |
+| Containerization | Docker & Docker Compose |
+| WSGI Server | Gunicorn |
+| Configuration | Environment Variables (.env) |
+
+---
+
+## 📁 Project Layout
+
 ```
-cp .env.example .env
+CineVault/
+│
+├── app/
+│   ├── app.py
+│   ├── requirements.txt
+│   ├── static/
+│   └── templates/
+│
+├── bd/
+│   └── webserver.sql
+│
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example
+├── run.sh
+├── run.ps1
+└── README.md
 ```
 
-Windows PowerShell:
+---
+
+## ⚙️ Configuration
+
+The application uses environment variables for secrets and database credentials.
+
+### Create `.env` file
+
+**Windows (PowerShell)**
+
 ```
 copy .env.example .env
 ```
 
-Edit `.env` and set secure passwords + JWT secret.
+**Linux / macOS**
+
+```
+cp .env.example .env
+```
 
 ---
 
-### 2️⃣ Run the app
+### Example `.env` values
 
-Linux/macOS:
 ```
-./run.sh
+MYSQL_ROOT_PASSWORD=YourRootPassHere
+MYSQL_DATABASE=CineVault
+MYSQL_USER=cineuser
+MYSQL_PASSWORD=YourDBPassHere
+
+DB_HOST=db
+DB_USER=cineuser
+DB_PASS=YourDBPassHere
+DB_NAME=CineVault
+
+JWT_SECRET=generate_a_long_random_secret_here
+PORT=5000
 ```
 
-Windows:
-```
-./run.ps1
-```
+⚠️ Never commit `.env` to GitHub.
 
-Or manually:
+---
+
+## 🐳 Run with Docker (Recommended)
+
+### Start containers
+
 ```
 docker-compose up --build
 ```
 
----
+### Services started
 
-## App URL
-http://localhost:8000
+- MySQL database
+- Flask API served via Gunicorn
 
----
+App URL:
 
-## Auth Flow
-
-Register:
 ```
-POST /auth/register
+http://localhost:8000
+```
+
+---
+
+### Stop containers
+
+```
+docker-compose down
+```
+
+---
+
+## 💻 Run Locally (Without Docker)
+
+### 1️⃣ Create virtual environment
+
+```
+python -m venv venv
+```
+
+Activate:
+
+```
+# macOS / Linux
+source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+```
+
+---
+
+### 2️⃣ Install dependencies
+
+```
+pip install -r app/requirements.txt
+```
+
+---
+
+### 3️⃣ Configure database
+
+- Start MySQL locally or remotely
+- Ensure credentials match `.env`
+- Optionally run:
+
+```
+bd/webserver.sql
+```
+
+---
+
+### 4️⃣ Run Flask app
+
+```
+python app/app.py
+```
+
+App runs at:
+
+```
+http://localhost:5000
+```
+
+---
+
+## 🔐 Authentication Flow (JWT)
+
+### Register
+
+**POST** `/auth/register`
+
+```
 {
   "username": "admin",
-  "password": "StrongPass123"
+  "password": "your_password"
 }
 ```
 
-Login → returns JWT token:
+---
+
+### Login
+
+**POST** `/auth/login`
+
 ```
-POST /auth/login
+{
+  "username": "admin",
+  "password": "your_password"
+}
+```
+
+Response:
+
+```
+{ "access_token": "eyJ..." }
 ```
 
 Use token:
-```
-Authorization: Bearer <token>
-```
-
----
-
-## Pagination & Search
 
 ```
-GET /api/movies?page=1&per_page=10&q=batman
+Authorization: Bearer <access_token>
 ```
 
 ---
 
-## Publish to GitHub
+## 📄 API Summary
 
-```
-git init
-git add .
-git commit -m "CineVault Dockerized"
-git remote add origin https://github.com/<you>/<repo>.git
-git push -u origin main
-```
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| POST | /auth/register | Create user |
+| POST | /auth/login | Login & get JWT |
+| GET | /api/movies | List movies |
+| GET | /api/movies/:id | Get movie details |
+| POST | /api/movies | Create movie (Protected) |
+| DELETE | /api/movies/:id | Delete movie (Protected) |
+| POST | /admin/seed | Seed sample data |
 
 ---
 
-## Notes
+## 🔎 Pagination & Search
 
-- Change all passwords in `.env`
-- Do NOT commit `.env`
-- Use Nginx + HTTPS for production
+Example:
+
+```
+GET /api/movies?page=1&per_page=10&q=inception
+```
+
+Query Parameters:
+
+- `page` → Page number  
+- `per_page` → Results per page  
+- `q` → Search by movie title  
+
+---
+
+## 🛡️ Security Notes
+
+- Secrets stored in `.env`
+- JWT tokens signed securely
+- Passwords hashed before storage
+- Database isolated via Docker network
+
+---
+
+## 📌 Future Enhancements
+
+- Role-based access control
+- Poster uploads
+- Frontend dashboard
+- Swagger API documentation
+- Cloud deployment
+
+---
+
+## 📜 License
+
+MIT License — Free to use and modify.
