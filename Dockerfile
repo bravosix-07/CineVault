@@ -19,4 +19,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["sh", "-c", "gunicorn -b 0.0.0.0:${PORT:-5000} app:app --workers 2"]
+CMD ["sh", "-c", "gunicorn 'app.app:create_app()' -b 0.0.0.0:${PORT:-5000} --workers 2"]
