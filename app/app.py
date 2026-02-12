@@ -17,7 +17,7 @@ JWT_SECRET = os.getenv('JWT_SECRET', 'change-me-to-a-secure-random-value')
 
 def create_app():
     app = Flask(__name__, static_folder='static', template_folder='templates')
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///cinevault.db"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['JWT_SECRET_KEY'] = JWT_SECRET
     app.config['JSON_SORT_KEYS'] = False
