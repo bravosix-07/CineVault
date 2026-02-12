@@ -1,0 +1,11 @@
+
+body { font-family: Arial, sans-serif; background:#0b0b0b; color:#fff; margin:0; padding:20px; }
+.container { max-width:900px; margin:0 auto; }
+.button-group .btn, .btn { display:inline-block; padding:10px 14px; background:#e50914; color:#fff; text-decoration:none; border-radius:6px; margin-right:8px; }
+.movie-list { list-style:none; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+.movie-card { background:#111; padding:12px; border-radius:8px; display:flex; gap:12px; align-items:flex-start; }
+.poster { width:90px; height:130px; object-fit:cover; border-radius:4px; }
+.info h3 { margin:0 0 8px 0; }
+.form label { display:block; margin-bottom:8px; }
+.form input, .form textarea { width:100%; padding:8px; border-radius:4px; border:1px solid #333; background:#0b0b0b; color:#fff; }
+.actions button { background:#444; color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer; }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CineVault — Add Movie</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <main class="container">
+    <nav><a href="/">← Back to Home</a></nav>
+    <h2>Add a New Movie</h2>
+    <form id="register-form" class="form">
+      <label>Title <input name="title" required /></label>
+      <label>Year <input name="year" type="number" /></label>
+      <label>Duration (minutes) <input name="duration" type="number" /></label>
+      <label>Poster URL <input name="poster" /></label>
+      <label>Description <textarea name="description"></textarea></label>
+      <button type="submit">Add Movie</button>
+    </form>
+    <div id="result" role="status" style="display:none"></div>
+  </main>
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
