@@ -263,10 +263,10 @@ Query Parameters:
 
 ## 📌 Future Enhancements
 
-- Role-based access control
+- Integrate rating and discussion forums
 - Poster uploads
+- Better UI/UX for frontend
 - Frontend dashboard
-- Swagger API documentation
 - Cloud deployment
 
 ---
